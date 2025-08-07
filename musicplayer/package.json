@@ -1,0 +1,70 @@
+{
+  "name": "musicplayer",
+  "version": "0.0.1",
+  "private": true,
+  "engines": {
+    "node": "^20.19.0 || >=22.12.0"
+  },
+  "main": "./src/main/main.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "electron": "wait-on tcp:5173 && electron .",
+    "start": "concurrently -k \"npm run dev\" \"npm run electron\"",
+    "electron:build":"electron-builder"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^5.1.0",
+    "js-base64": "^3.7.7",
+    "music-metadata": "^11.7.3",
+    "sqlite3": "^5.1.7",
+    "vue": "^3.5.18",
+    "vue-router": "^4.5.1"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^6.0.1",
+    "concurrently": "^9.2.0",
+    "cross-env": "^10.0.0",
+    "electron": "^37.2.5",
+    "electron-builder": "^26.0.12",
+    "vite": "^7.0.6",
+    "vite-plugin-vue-devtools": "^8.0.0",
+    "wait-on": "^8.0.4"
+  },
+  "build": {
+    "appId": "com.myapp.musicplayer",
+    "productName": "音乐播放器",
+    "copyright": "Copyright © 2025 Mr.Gao",
+    "directories": {
+      "output": "dist_electron" 
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "deleteAppDataOnUninstall": true  
+    },  
+    "files": [
+      "dist/**/*",
+      "src/main/**/*",
+      "src/preload.js",
+      "package.json"
+    ],  
+    "win": {
+      "target": [
+        {
+          "target": "nsis"
+        }
+      ],
+      "icon":"./build/icon.png"
+    },
+    "mac": {
+      "target": "dmg"
+    },
+    "electronDownload": {
+    "mirror": "https://npmmirror.com/mirrors/electron/"
+    }
+    
+  }
+}
